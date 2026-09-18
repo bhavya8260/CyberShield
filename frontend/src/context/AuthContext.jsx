@@ -1,3 +1,4 @@
+/* eslint-disable react/only-export-components */
 import React, { createContext, useState, useEffect } from 'react';
 import * as authService from '../services/authService';
 import { getAuthToken } from '../utils/auth';
