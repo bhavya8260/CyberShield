@@ -21,7 +21,4 @@ services:
     staticPublishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: cybershield-backend
-          type: web
-          property: url
+        sync: false
