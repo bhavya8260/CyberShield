@@ -22,6 +22,13 @@ app.use(cors());
 // Mount routers
 app.use('/api/auth', authRoutes);
 
+// Handle 404 for unknown routes
+app.use((req, res, next) => {
+  res.status(404);
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  next(error);
+});
+
 // Error middleware
 app.use(errorHandler);
 
