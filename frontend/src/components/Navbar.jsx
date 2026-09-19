@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import { Shield, Menu, X } from 'lucide-react';
-import '../../styles/cybershield.css';
+import '../styles/cybershield.css';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
