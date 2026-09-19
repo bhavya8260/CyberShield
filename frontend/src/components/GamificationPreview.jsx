@@ -5,27 +5,28 @@ const GamificationPreview = () => {
   return (
     <section className="section-gamification">
       <div className="section-header">
-        <h2>YOUR CYBER JOURNEY</h2>
-        <p>Track your progress, earn experience, and level up.</p>
+        <h2>RANK UP YOUR CYBER SKILLS</h2>
+        <p>Defend against simulated threats to earn XP, unlock advanced missions, and climb the leaderboards.</p>
       </div>
       <div className="gami-container">
-        <div className="gami-header">CURRENT STATUS</div>
+        <div className="gami-header">OPERATIVE STATUS</div>
         
         <div className="gami-level-info">
           <div>
-            <h3>Level 01</h3>
-            <span style={{ color: 'var(--text-primary)' }}>Cyber Rookie</span>
+            <h3>Level 12</h3>
+            <span style={{ color: 'var(--text-primary)' }}>Security Analyst</span>
           </div>
-          <span>60 XP / 100 XP</span>
+          <span>2,450 XP / 3,000 XP</span>
         </div>
         
         <div className="gami-progress-bar">
-          <div className="gami-progress-fill"></div>
+          <div className="gami-progress-fill" style={{ width: '81%' }}></div>
         </div>
         
         <div className="gami-stats">
-          <span>Challenges Completed: 6</span>
-          <span>Current Streak: 3 Days</span>
+          <span>Threats Mitigated: 47</span>
+          <span>Zero-Days Patched: 3</span>
+          <span>Current Streak: 14 Days</span>
         </div>
       </div>
     </section>

@@ -8,8 +8,8 @@ const CyberShieldHero = () => {
       <div className="hero-background">
         <GradientWaves
           horizonColor="#07111F"
-          waveColor="#123C66"
-          crestColor="#4FD1FF"
+          waveColor="#245687ff"
+          crestColor="#8dddf9ff"
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
@@ -29,18 +29,18 @@ const CyberShieldHero = () => {
           grainIntensity={0.03}
         />
       </div>
-      
+
       <div className="hero-overlay"></div>
-      
+
       <div className="hero-content">
         <div className="hero-badge">
           🛡 INTERACTIVE CYBERSECURITY TRAINING
         </div>
         <h1>MASTER CYBERSECURITY<br />THROUGH SIMULATION</h1>
-        <p>
-          Learn cybersecurity by investigating simulated attacks, 
+        <p><h1>
+          Learn cybersecurity by investigating simulated attacks,
           solving security challenges, and making the right decisions.
-        </p>
+        </h1></p>
         <div className="hero-actions">
           <Link to="/register" className="btn btn-primary">START LEARNING</Link>
           <Link to="/missions" className="btn btn-secondary">EXPLORE MISSIONS</Link>

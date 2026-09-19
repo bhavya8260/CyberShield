@@ -4,19 +4,22 @@ import '../styles/cybershield.css';
 const MissionPreview = () => {
   const missions = [
     {
-      title: 'PHISHING ATTACK',
+      title: 'OPERATION: SPEARPHISH',
+      description: 'Identify and neutralize a targeted email campaign aimed at company executives.',
       difficulty: 'Beginner',
-      xp: '+100 XP'
+      xp: '+150 XP'
     },
     {
-      title: 'NETWORK INTRUSION',
+      title: 'BREACH PROTOCOL',
+      description: 'Analyze network logs to locate the source of an ongoing unauthorized data exfiltration.',
       difficulty: 'Intermediate',
-      xp: '+250 XP'
+      xp: '+300 XP'
     },
     {
-      title: 'MALWARE INVESTIGATION',
+      title: 'ZERO DAY CONTAINMENT',
+      description: 'Reverse engineer a novel malware strain before it successfully encrypts the mainframe.',
       difficulty: 'Advanced',
-      xp: '+500 XP'
+      xp: '+600 XP'
     }
   ];
 
@@ -31,6 +34,9 @@ const MissionPreview = () => {
           <div className="mission-card" key={index}>
             <div className="mission-coming-soon">COMING SOON</div>
             <h3 className="mission-title">{mission.title}</h3>
+            <p className="mission-description" style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '-0.5rem', marginBottom: '1rem' }}>
+              {mission.description}
+            </p>
             <div className="mission-meta">
               <span>Difficulty: {mission.difficulty}</span>
               <span style={{ color: 'var(--accent-cyan)' }}>{mission.xp}</span>
