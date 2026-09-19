@@ -1,6 +1,6 @@
 import { getAuthToken } from '../utils/auth';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://cybershield-uqns.onrender.com/api' : 'http://localhost:5000/api');
 
 const apiFetch = async (endpoint, options = {}) => {
   const token = getAuthToken();
