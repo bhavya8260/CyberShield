@@ -5,8 +5,9 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/cybershield');
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
+    console.error(`Database Connection Error: ${error.message}`);
+    // Do not exit the process, allow the server to keep running and return 500 errors
+    // process.exit(1);
   }
 };
 
