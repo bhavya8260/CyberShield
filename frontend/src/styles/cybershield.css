@@ -4,11 +4,11 @@
   --bg-primary: #050B14;
   --bg-secondary: #081321;
   --bg-tertiary: #0F1E33;
-  --accent-cyan: #4FD1FF;
-  --accent-blue: #123C66;
+  --accent-cyan: #b94fff;
+  --accent-blue: #501266;
   --text-primary: #FFFFFF;
-  --text-secondary: #A0B3C6;
-  --text-tertiary: #6C849D;
+  --text-secondary: #bca0c6;
+  --text-tertiary: #976c9d;
   --border-subtle: rgba(79, 209, 255, 0.15);
   --glass-bg: rgba(8, 19, 33, 0.6);
 }
@@ -29,7 +29,11 @@ body {
 }
 
 /* Base Styles */
-h1, h2, h3, h4, p {
+h1,
+h2,
+h3,
+h4,
+p {
   margin: 0;
 }
 
@@ -156,8 +160,12 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(5, 11, 20, 0.3) 0%, rgba(5, 11, 20, 0.9) 100%);
+  background: linear-gradient(90deg,
+      rgba(5, 11, 20, 0.75),
+      rgba(5, 11, 20, 0.35),
+      rgba(5, 11, 20, 0.75));
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-content {
@@ -376,7 +384,7 @@ a {
   font-size: 0.85rem;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Gamification Preview */
@@ -422,7 +430,7 @@ a {
 .gami-progress-bar {
   width: 100%;
   height: 12px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -465,7 +473,7 @@ a {
 .cyber-footer {
   background-color: var(--bg-primary);
   padding: 4rem 2rem 2rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .footer-content {
@@ -521,6 +529,7 @@ a {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -529,35 +538,54 @@ a {
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .hero-content h1 { font-size: 3.5rem; }
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .nav-links, .nav-actions .btn-outline {
+
+  .nav-links,
+  .nav-actions .btn-outline {
     display: none;
   }
+
   .hamburger {
     display: block;
   }
-  .hero-content h1 { font-size: 2.5rem; }
-  .hero-content p { font-size: 1.1rem; }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
   .hero-actions {
     flex-direction: column;
     width: 100%;
     max-width: 300px;
     margin: 0 auto;
   }
+
   .how-steps {
     flex-direction: column;
     align-items: center;
   }
+
   .how-step {
     margin-bottom: 3rem;
   }
+
   .how-step:last-child {
     margin-bottom: 0;
   }
-  .section-cta h2 { font-size: 2rem; }
+
+  .section-cta h2 {
+    font-size: 2rem;
+  }
+
   .footer-content {
     flex-direction: column;
     align-items: flex-start;

@@ -1,33 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import GradientWaves from './GradientWaves/GradientWaves';
+import Threads from './Threads/Threads';
 import '../styles/cybershield.css';
 
 const Hero = () => {
   return (
     <section className="cyber-hero">
       <div className="hero-background">
-        <GradientWaves
-          horizonColor="#07111F"
-          waveColor="#123C66"
-          crestColor="#4FD1FF"
-          speed={0.4}
-          amplitude={2.5}
-          waveScale={0.6}
-          waveRatio={0.9}
-          swell={35}
-          turbulence={20}
-          tilt={1.11}
-          zoom={1.0}
-          height={5.5}
-          fogDepth={15}
-          detail="medium"
-          brightness={1.0}
-          opacity={0.85}
-          mouseInteraction={true}
-          parallaxStrength={0.5}
-          grain={true}
-          grainIntensity={0.03}
+        <Threads
+          color={[0.6, 0.65, 0.7]}
+          amplitude={1}
+          distance={0}
+          enableMouseInteraction={true}
         />
       </div>
       <div className="hero-overlay"></div>
