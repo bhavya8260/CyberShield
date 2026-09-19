@@ -2,29 +2,59 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Terminal, Lock } from 'lucide-react';
 
+import { StructureFlowCollection } from "@designcodeio/threeui";
+import "@designcodeio/threeui/style.css";
+
 const Home = () => {
   return (
-    <div className="home-container">
-      <header className="hero">
-        <Shield className="hero-icon" size={80} />
-        <h1 className="hero-title">CyberShield</h1>
-        <p className="hero-subtitle">Learn cybersecurity by solving simulated attacks.</p>
-        <div className="hero-actions">
-          <Link to="/register" className="btn btn-primary btn-large">Start Learning</Link>
-          <Link to="/login" className="btn btn-outline btn-large">Login</Link>
+    <div className="home-container" style={{ margin: 0, padding: 0, minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#0f172a' }}>
+      <header className="hero" style={{ position: 'relative', overflow: 'hidden', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        
+        {/* ThreeUI Background */}
+        <div className="shader-frame" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+          <StructureFlowCollection
+            variant="topology-field"
+            hue={0}
+            saturation={1.00}
+            brightness={1.10}
+          />
+        </div>
+        
+        {/* Overlay to ensure text readability */}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(15, 23, 42, 0.4)', zIndex: 1 }} />
+        
+        {/* Hero Content */}
+        <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', maxWidth: '800px', padding: '0 2rem' }}>
+          <h1 style={{ fontSize: '1.25rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#60a5fa', marginBottom: '1rem', fontWeight: '600' }}>
+            CyberShield
+          </h1>
+          <h2 style={{ fontSize: '3.5rem', fontWeight: '800', color: '#f8fafc', lineHeight: 1.1, marginBottom: '1.5rem' }}>
+            Master Cybersecurity Through Simulation
+          </h2>
+          <p style={{ fontSize: '1.25rem', color: '#cbd5e1', marginBottom: '2.5rem', lineHeight: 1.6 }}>
+            Learn cybersecurity by solving simulated attacks, investigating threats, and making the right security decisions.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <Link to="/register" style={{ padding: '1rem 2rem', background: '#3b82f6', color: '#fff', borderRadius: '0.5rem', fontSize: '1.125rem', fontWeight: '600', textDecoration: 'none', transition: 'background 0.2s' }}>
+              Start Learning
+            </Link>
+            <Link to="/missions" style={{ padding: '1rem 2rem', background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', borderRadius: '0.5rem', fontSize: '1.125rem', fontWeight: '600', textDecoration: 'none', backdropFilter: 'blur(10px)' }}>
+              Explore Missions
+            </Link>
+          </div>
         </div>
       </header>
 
-      <section className="features">
-        <div className="feature-card">
-          <Terminal className="feature-icon" />
-          <h3>Interactive Missions</h3>
-          <p>Complete hands-on cybersecurity missions designed to teach real-world defense techniques.</p>
+      <section className="features" style={{ padding: '5rem 2rem', background: '#0f172a', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+        <div className="feature-card" style={{ background: '#1e293b', padding: '2rem', borderRadius: '1rem', flex: '1', minWidth: '300px', maxWidth: '400px' }}>
+          <Terminal size={40} color="#60a5fa" style={{ marginBottom: '1.5rem' }} />
+          <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1rem' }}>Interactive Missions</h3>
+          <p style={{ color: '#94a3b8', lineHeight: 1.6 }}>Complete hands-on cybersecurity missions designed to teach real-world defense techniques.</p>
         </div>
-        <div className="feature-card">
-          <Lock className="feature-icon" />
-          <h3>Secure Architecture</h3>
-          <p>Experience safe, sandboxed environments that simulate actual cyber threats.</p>
+        <div className="feature-card" style={{ background: '#1e293b', padding: '2rem', borderRadius: '1rem', flex: '1', minWidth: '300px', maxWidth: '400px' }}>
+          <Lock size={40} color="#60a5fa" style={{ marginBottom: '1.5rem' }} />
+          <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1rem' }}>Secure Architecture</h3>
+          <p style={{ color: '#94a3b8', lineHeight: 1.6 }}>Experience safe, sandboxed environments that simulate actual cyber threats.</p>
         </div>
       </section>
     </div>
