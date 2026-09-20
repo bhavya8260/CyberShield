@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const MissionResult = require('../models/MissionResult');
 const Mission = require('../models/Mission');
 const gamification = require('../utils/gamification');
 
@@ -205,10 +206,30 @@ const getMyRecommendations = async (req, res, next) => {
   }
 };
 
+// @desc    Get user investigation history
+// @route   GET /api/users/me/history
+// @access  Private
+const getInvestigationHistory = async (req, res, next) => {
+  try {
+    const history = await MissionResult.find({ userId: req.user._id })
+      .populate('missionId', 'title category difficulty')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: history.length,
+      data: history,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getMyProgress,
   getLeaderboard,
   getDailyChallenge,
   getMySkills,
-  getMyRecommendations
+  getMyRecommendations,
+  getInvestigationHistory
 };

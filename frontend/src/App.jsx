@@ -22,6 +22,11 @@ import Challenge from './pages/Challenge';
 import MissionResult from './pages/MissionResult';
 import Simulation from './pages/Simulation';
 import Leaderboard from './pages/Leaderboard';
+import Paths from './pages/Paths';
+import PathDetails from './pages/PathDetails';
+import Challenges from './pages/Challenges';
+import Skills from './pages/Skills';
+import History from './pages/History';
 
 function App() {
   return (
@@ -57,6 +62,46 @@ function App() {
                 element={
                   <ProtectedRoute message="Authentication required to view the leaderboard.">
                     <Leaderboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/paths" 
+                element={
+                  <ProtectedRoute>
+                    <Paths />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/paths/:id" 
+                element={
+                  <ProtectedRoute>
+                    <PathDetails />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/challenges" 
+                element={
+                  <ProtectedRoute>
+                    <Challenges />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/skills" 
+                element={
+                  <ProtectedRoute>
+                    <Skills />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/history" 
+                element={
+                  <ProtectedRoute>
+                    <History />
                   </ProtectedRoute>
                 } 
               />

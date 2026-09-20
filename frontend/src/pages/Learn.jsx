@@ -8,6 +8,10 @@ const Learn = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTopic, setSelectedTopic] = useState(null);
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeDifficulty, setActiveDifficulty] = useState('All');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +52,17 @@ const Learn = () => {
       </div>
     );
   }
+
+  const categories = ['All', ...new Set(topics.map(t => t.category))];
+  const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+
+  const filteredTopics = topics.filter(t => {
+    const matchesSearch = t.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          t.summary.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === 'All' || t.category === activeCategory;
+    const matchesDifficulty = activeDifficulty === 'All' || t.difficulty === activeDifficulty;
+    return matchesSearch && matchesCategory && matchesDifficulty;
+  });
 
   return (
     <div className="cybershield-container" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
@@ -109,39 +124,71 @@ const Learn = () => {
           </div>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
-          {topics.map(topic => (
-            <div 
-              key={topic.id}
-              onClick={() => setSelectedTopic(topic)}
-              style={{ 
-                background: 'var(--bg-secondary)', 
-                padding: '1.5rem', 
-                borderRadius: '8px', 
-                border: '1px solid var(--border-subtle)',
-                cursor: 'pointer',
-                transition: 'border-color 0.2s, transform 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border-subtle)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', textTransform: 'uppercase' }}>{topic.category}</span>
-                <span style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', textTransform: 'uppercase' }}>{topic.difficulty}</span>
-              </div>
-              <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>{topic.title}</h3>
-              <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {topic.summary}
-              </p>
+        <>
+          <div style={{ background: 'var(--bg-secondary)', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid var(--border-subtle)' }}>
+            <input 
+              type="text" 
+              placeholder="Search topics..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+            />
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <select 
+                value={activeCategory} 
+                onChange={(e) => setActiveCategory(e.target.value)}
+                style={{ padding: '0.5rem', borderRadius: '4px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
+              >
+                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              </select>
+              <select 
+                value={activeDifficulty} 
+                onChange={(e) => setActiveDifficulty(e.target.value)}
+                style={{ padding: '0.5rem', borderRadius: '4px', background: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-subtle)' }}
+              >
+                {difficulties.map(diff => <option key={diff} value={diff}>{diff}</option>)}
+              </select>
             </div>
-          ))}
-        </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
+            {filteredTopics.length === 0 ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-secondary)', padding: '2rem' }}>No topics match your search.</div>
+            ) : (
+              filteredTopics.map(topic => (
+                <div 
+                  key={topic.id}
+                  onClick={() => setSelectedTopic(topic)}
+                  style={{ 
+                    background: 'var(--bg-secondary)', 
+                    padding: '1.5rem', 
+                    borderRadius: '8px', 
+                    border: '1px solid var(--border-subtle)',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s, transform 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent-cyan)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', textTransform: 'uppercase' }}>{topic.category}</span>
+                    <span style={{ color: 'var(--accent-cyan)', fontSize: '0.8rem', textTransform: 'uppercase' }}>{topic.difficulty}</span>
+                  </div>
+                  <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>{topic.title}</h3>
+                  <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {topic.summary}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
+        </>
       )}
     </div>
   );

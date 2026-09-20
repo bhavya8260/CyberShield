@@ -95,13 +95,28 @@ const MissionDetails = () => {
 
         <div className="mission-content-section" style={{ marginBottom: '4rem' }}>
           <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem' }}>OBJECTIVES</h2>
-          <ul className="objectives-list" style={{ listStyleType: 'none', padding: 0, color: 'var(--text-secondary)' }}>
+          <ul className="objectives-list" style={{ listStyleType: 'none', padding: 0, color: 'var(--text-secondary)', marginBottom: '2rem' }}>
             {mission.objectives && mission.objectives.map((obj, index) => (
               <li key={index} style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'flex-start' }}>
                 <span style={{ color: 'var(--accent-cyan)', marginRight: '10px' }}>✓</span> {obj}
               </li>
             ))}
           </ul>
+          
+          <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '1rem', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.5rem' }}>SKILLS PRACTICED</h2>
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+             {mission.simulationType && (
+               <span style={{ background: 'rgba(74, 222, 128, 0.1)', color: '#4ade80', border: '1px solid #4ade80', padding: '0.3rem 0.8rem', borderRadius: '4px', fontSize: '0.85rem' }}>
+                 {CATEGORY_MAP[mission.simulationType] || mission.simulationType}
+               </span>
+             )}
+             <span style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)', padding: '0.3rem 0.8rem', borderRadius: '4px', fontSize: '0.85rem' }}>
+               Critical Thinking
+             </span>
+             <span style={{ background: 'rgba(255, 255, 255, 0.05)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)', padding: '0.3rem 0.8rem', borderRadius: '4px', fontSize: '0.85rem' }}>
+               Log Analysis
+             </span>
+          </div>
         </div>
 
         <div className="mission-actions-footer" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>

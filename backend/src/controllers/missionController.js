@@ -1,6 +1,7 @@
 const Mission = require('../models/Mission');
 const MissionResult = require('../models/MissionResult');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
 const gamification = require('../utils/gamification');
 
 // @desc    Get all published missions
@@ -215,6 +216,43 @@ const submitMission = async (req, res, next) => {
         }
 
         await user.save();
+
+        // Create Notifications
+        if (levelUp) {
+          await Notification.create({
+            userId: user._id,
+            type: 'level',
+            title: 'Level Up!',
+            message: `Congratulations! You've reached Level ${level}.`
+          });
+        }
+        
+        if (newAchievements.length > 0) {
+          for (let ach of newAchievements) {
+            await Notification.create({
+              userId: user._id,
+              type: 'achievement',
+              title: 'Achievement Unlocked',
+              message: `You unlocked the "${ach.name}" achievement.`
+            });
+          }
+        }
+        
+        if (isDailyChallenge) {
+           await Notification.create({
+             userId: user._id,
+             type: 'daily',
+             title: 'Daily Challenge Completed',
+             message: `You completed today's challenge and earned bonus XP!`
+           });
+        } else {
+           await Notification.create({
+             userId: user._id,
+             type: 'mission',
+             title: 'Mission Completed',
+             message: `You completed "${mission.title}" and earned ${xpEarned} XP.`
+           });
+        }
       }
     }
 
@@ -510,6 +548,43 @@ const submitSimulation = async (req, res, next) => {
         }
 
         await user.save();
+
+        // Create Notifications
+        if (levelUp) {
+          await Notification.create({
+            userId: user._id,
+            type: 'level',
+            title: 'Level Up!',
+            message: `Congratulations! You've reached Level ${level}.`
+          });
+        }
+        
+        if (newAchievements.length > 0) {
+          for (let ach of newAchievements) {
+            await Notification.create({
+              userId: user._id,
+              type: 'achievement',
+              title: 'Achievement Unlocked',
+              message: `You unlocked the "${ach.name}" achievement.`
+            });
+          }
+        }
+        
+        if (isDailyChallenge) {
+           await Notification.create({
+             userId: user._id,
+             type: 'daily',
+             title: 'Daily Challenge Completed',
+             message: `You completed today's challenge and earned bonus XP!`
+           });
+        } else {
+           await Notification.create({
+             userId: user._id,
+             type: 'mission',
+             title: 'Investigation Completed',
+             message: `You completed "${mission.title}" and earned ${xpEarned} XP.`
+           });
+        }
       }
     }
 

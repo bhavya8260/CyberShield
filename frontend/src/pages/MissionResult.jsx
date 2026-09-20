@@ -153,12 +153,15 @@ const MissionResult = () => {
           </div>
         )}
 
-        <div className="result-actions" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-          <Link to="/missions" className="btn btn-outline" style={{ padding: '0.75rem 2rem' }}>
-            [ BACK TO MISSIONS ]
+        <div className="result-actions" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <Link to="/dashboard" className="btn btn-outline" style={{ padding: '0.75rem 2rem' }}>
+            [ COMMAND CENTER ]
           </Link>
-          <Link to="/dashboard" className="btn btn-primary" style={{ padding: '0.75rem 2rem' }}>
-            [ GO TO DASHBOARD ]
+          <Link to="/challenges" className="btn btn-primary" style={{ padding: '0.75rem 2rem' }}>
+            [ NEXT CHALLENGE ]
+          </Link>
+          <Link to="/paths" className="btn btn-primary" style={{ padding: '0.75rem 2rem', background: 'var(--accent-purple)', borderColor: 'var(--accent-purple)', color: '#fff' }}>
+            [ CONTINUE LEARNING ]
           </Link>
         </div>
       </div>

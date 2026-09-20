@@ -11,6 +11,7 @@ const userRoutes = require('./src/routes/userRoutes');
 const learnRoutes = require('./src/routes/learnRoutes');
 const aiRoutes = require('./src/routes/aiRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const notificationRoutes = require('./src/routes/notificationRoutes');
 
 // Load env vars
 dotenv.config();
@@ -49,6 +50,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/learn', learnRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Handle 404 for unknown routes
 app.use((req, res, next) => {
