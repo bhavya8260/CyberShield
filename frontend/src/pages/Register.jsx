@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Shield } from 'lucide-react';
 
@@ -13,6 +13,7 @@ const Register = () => {
   const [error, setError] = useState('');
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,7 +39,8 @@ const Register = () => {
         email: formData.email,
         password: formData.password,
       });
-      navigate('/dashboard');
+      const from = location.state?.from || '/dashboard';
+      navigate(from);
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
     }
@@ -105,7 +107,7 @@ const Register = () => {
           <button type="submit" className="btn btn-primary btn-block">Register</button>
         </form>
         <p className="auth-footer">
-          Already have an account? <Link to="/login">Login here</Link>
+          Already have an account? <Link to="/login" state={{ from: location.state?.from }}>Login here</Link>
         </p>
       </div>
     </div>

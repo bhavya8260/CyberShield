@@ -131,6 +131,7 @@ a:hover {
   background-color: transparent;
   color: var(--accent-primary);
   border: 1px solid var(--accent-primary);
+  box-shadow: var(--glow-primary);
 }
 
 .btn-outline:hover {
@@ -233,6 +234,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 150px);
+  padding-top: 100px;
 }
 
 .auth-card {
@@ -308,6 +310,7 @@ a:hover {
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
+  padding-top: 100px;
 }
 
 .stats-section {
@@ -413,6 +416,7 @@ a:hover {
 .profile-container {
   display: flex;
   justify-content: center;
+  padding-top: 100px;
 }
 
 .profile-card {
@@ -481,4 +485,45 @@ a:hover {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* LIGHT THEME OVERRIDES */
+[data-theme="light"] {
+  --bg-dark: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --accent-primary: #2563EB;
+  --accent-secondary: #7C3AED;
+  --accent-hover: #1D4ED8;
+  --error: #DC2626;
+  --border-color: #CBD5E1;
+  --glow-primary: 0 0 15px rgba(37, 99, 235, 0.3);
+  --glow-secondary: 0 0 15px rgba(124, 58, 237, 0.3);
+}
+
+[data-theme="light"] .form-group input {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .form-group input:focus {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+[data-theme="light"] .mission-item, 
+[data-theme="light"] .placeholder-content {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.5);
+}
+
+[data-theme="light"] .btn-outline:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+[data-theme="light"] .spinner {
+  border: 3px solid rgba(37, 99, 235, 0.1);
+  border-top-color: var(--accent-primary);
 }

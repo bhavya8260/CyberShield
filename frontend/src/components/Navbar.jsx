@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Shield, Menu, X } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { Shield, Menu, X, Sun, Moon } from 'lucide-react';
 import '../styles/cybershield.css';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -29,6 +31,14 @@ const Navbar = () => {
       </div>
       
       <div className="nav-actions">
+        <button 
+          onClick={toggleTheme} 
+          className="theme-toggle"
+          aria-label="Toggle theme"
+          style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+        >
+          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
         {user ? (
           <>
             <Link to="/dashboard" className="btn btn-secondary">Dashboard</Link>

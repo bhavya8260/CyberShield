@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./src/config/database');
 const { errorHandler } = require('./src/middleware/errorMiddleware');
 const authRoutes = require('./src/routes/authRoutes');
+const missionRoutes = require('./src/routes/missionRoutes');
 
 // Load env vars
 dotenv.config();
@@ -27,6 +28,7 @@ app.use(cors({
 
 // Mount routers
 app.use('/api/auth', authRoutes);
+app.use('/api/missions', missionRoutes);
 
 // Handle 404 for unknown routes
 app.use((req, res, next) => {

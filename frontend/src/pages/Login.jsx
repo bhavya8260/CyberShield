@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Lock } from 'lucide-react';
 
@@ -8,6 +8,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +19,8 @@ const Login = () => {
     setError('');
     try {
       await login(formData);
-      navigate('/dashboard');
+      const from = location.state?.from || '/dashboard';
+      navigate(from);
     } catch (err) {
       setError(err.message || 'Login failed. Please try again.');
     }
@@ -61,7 +63,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary btn-block">Login</button>
         </form>
         <p className="auth-footer">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don't have an account? <Link to="/register" state={{ from: location.state?.from }}>Register here</Link>
         </p>
       </div>
     </div>

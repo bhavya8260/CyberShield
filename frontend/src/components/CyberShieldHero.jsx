@@ -37,10 +37,10 @@ const CyberShieldHero = () => {
           🛡 INTERACTIVE CYBERSECURITY TRAINING
         </div>
         <h1>MASTER CYBERSECURITY<br />THROUGH SIMULATION</h1>
-        <p><h1>
+        <p>
           Learn cybersecurity by investigating simulated attacks,
           solving security challenges, and making the right decisions.
-        </h1></p>
+        </p>
         <div className="hero-actions">
           <Link to="/register" className="btn btn-primary">START LEARNING</Link>
           <Link to="/missions" className="btn btn-secondary">EXPLORE MISSIONS</Link>

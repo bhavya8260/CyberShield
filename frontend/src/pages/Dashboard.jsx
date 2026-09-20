@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -28,28 +29,35 @@ const Dashboard = () => {
 
       <div className="dashboard-grid">
         <section className="dashboard-section">
-          <h2>Cyber Missions</h2>
-          <ul className="mission-list">
-            <li className="mission-item">
-              <span className="mission-name">Phishing Defense</span>
-              <span className="badge badge-disabled">Coming Soon</span>
-            </li>
-            <li className="mission-item">
-              <span className="mission-name">Password Security</span>
-              <span className="badge badge-disabled">Coming Soon</span>
-            </li>
-            <li className="mission-item">
-              <span className="mission-name">Network Attack</span>
-              <span className="badge badge-disabled">Coming Soon</span>
-            </li>
-          </ul>
+          <h2>YOUR TRAINING</h2>
+          <div className="training-summary">
+            <p>Completed Missions: <strong>{user?.completedChallenges || 0}</strong></p>
+            <p>Total XP: <strong>{user?.totalScore || 0}</strong></p>
+            <p>Current Level: <strong className="accent">Cyber Rookie</strong></p>
+            <div style={{ marginTop: '1.5rem' }}>
+              <Link to="/missions" className="btn btn-primary">
+                [ CONTINUE TRAINING ]
+              </Link>
+            </div>
+          </div>
         </section>
 
         <section className="dashboard-section">
-          <h2>Security Challenges</h2>
-          <div className="placeholder-content">
-            <p>More cybersecurity missions coming soon...</p>
-          </div>
+          <h2>Recommended Missions</h2>
+          <ul className="mission-list">
+            <li className="mission-item">
+              <span className="mission-name">Phishing Defense</span>
+              <Link to="/missions" className="badge" style={{ backgroundColor: 'var(--accent-primary)', color: '#000', textDecoration: 'none' }}>Start</Link>
+            </li>
+            <li className="mission-item">
+              <span className="mission-name">Password Security</span>
+              <Link to="/missions" className="badge" style={{ backgroundColor: 'var(--accent-primary)', color: '#000', textDecoration: 'none' }}>Start</Link>
+            </li>
+            <li className="mission-item">
+              <span className="mission-name">Network Attack</span>
+              <Link to="/missions" className="badge" style={{ backgroundColor: 'var(--accent-primary)', color: '#000', textDecoration: 'none' }}>Start</Link>
+            </li>
+          </ul>
         </section>
       </div>
     </div>
