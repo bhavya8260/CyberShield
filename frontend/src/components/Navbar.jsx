@@ -26,8 +26,8 @@ const Navbar = () => {
       <div className="nav-links" style={{ display: mobileMenuOpen ? 'flex' : '' }}>
         <Link to="/">Home</Link>
         <Link to="/missions">Missions</Link>
-        <Link to="/how-it-works">How It Works</Link>
-        <Link to="/leaderboard">Leaderboard</Link>
+        <Link to="/learn">Knowledge Hub</Link>
+        {user && <Link to="/leaderboard">Leaderboard</Link>}
       </div>
       
       <div className="nav-actions">
@@ -41,6 +41,9 @@ const Navbar = () => {
         </button>
         {user ? (
           <>
+            {user.role === 'admin' && (
+              <Link to="/admin" className="btn btn-secondary" style={{ borderColor: 'var(--accent-red)', color: 'var(--accent-red)' }}>Admin Panel</Link>
+            )}
             <Link to="/dashboard" className="btn btn-secondary">Dashboard</Link>
             <button onClick={handleLogout} className="btn btn-primary" style={{ backgroundColor: '#EF4444', color: '#fff' }}>Logout</button>
           </>

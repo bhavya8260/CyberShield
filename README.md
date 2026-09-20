@@ -1,91 +1,139 @@
-# CyberShield
+# CyberShield – Cybersecurity Learning & Simulation Platform
 
-**Learn cybersecurity by solving simulated attacks.**
+CyberShield is an interactive, gamified cybersecurity learning platform. It allows users to investigate simulated security incidents, make crucial decisions, receive instant feedback, earn XP, unlock achievements, and incrementally improve their real-world cybersecurity skills through hands-on learning.
 
-CyberShield is a web-based learning platform where users can practice cybersecurity skills through interactive missions. This repository contains the Phase 1 implementation, providing a stable full-stack foundation with authentication, protected routes, and a dashboard.
+## Features
 
-## Phase 1 Features
-- **User Authentication**: Secure registration and login using JWT.
-- **Password Hashing**: User passwords are encrypted using bcrypt.
-- **Protected Routes**: Dashboard and Profile pages require an active login session.
-- **Modern UI**: Cybersecurity-themed responsive interface using React and custom CSS.
+- **Authentication System**: Secure JWT-based registration and login.
+- **Mission System**: Question-based challenges with contextual storytelling.
+- **Interactive Simulations**:
+  - Phishing identification
+  - Password security evaluation
+  - Network intrusion investigation
+  - Malware investigation
+  - Incident response procedures
+- **Evidence & Investigation**: A dynamic timeline system to collect and analyze artifacts.
+- **Gamification**:
+  - XP & Leveling system
+  - Achievements and Badges
+  - Daily login streaks
+  - Global Leaderboard
+- **Adaptive Learning System**:
+  - Comprehensive skill assessment tracking
+  - Topic-based learning recommendations
+  - Dedicated Knowledge Hub
+- **AI Security Assistant**: Context-aware help to guide users without spoiling answers.
+- **Administration**:
+  - Comprehensive Admin Dashboard
+  - User and Mission management
+  - Aggregated system analytics
+  - Secure Audit logging for high-risk actions
+- **UI/UX**: Responsive modern interface featuring Light/Dark modes.
 
-## Technologies Used
-**Frontend**
-- React.js (Vite)
-- React Router
-- CSS3 (Custom Design System)
-- Lucide React (Icons)
+## Technology Stack
 
-**Backend**
-- Node.js
-- Express.js
-- MongoDB & Mongoose
-- JSON Web Token (JWT)
-- bcryptjs
+- **Frontend**: React, JavaScript, HTML, CSS, Vite
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB (via Mongoose)
+- **Authentication**: JWT (JSON Web Tokens), bcrypt
+- **Security Middleware**: Helmet, express-rate-limit, express-mongo-sanitize
 
-## Prerequisites
-- Node.js (v18+)
-- MongoDB (Local instance or MongoDB Atlas)
+## Project Structure
 
-## Installation & Setup
+```
+CyberShield/
+├── backend/
+│   ├── src/
+│   │   ├── config/       # Database & Env config
+│   │   ├── controllers/  # API Route Handlers (auth, admin, ai, missions, users)
+│   │   ├── middleware/   # Auth, Admin, Error handlers
+│   │   ├── models/       # Mongoose Schemas
+│   │   ├── routes/       # Express Routes
+│   │   ├── services/     # External integrations (AI)
+│   │   └── utils/        # Helpers & Database seeders
+│   └── server.js         # Backend Entry Point
+├── frontend/
+│   ├── src/
+│   │   ├── components/   # Reusable UI elements (Navbar, AI Assistant, AdminRoute)
+│   │   ├── context/      # React Context (Auth, Theme)
+│   │   ├── pages/        # Main App views (Dashboard, Learn, Admin, Simulations)
+│   │   ├── services/     # Frontend API fetch wrappers
+│   │   └── index.css     # Global CSS and Design Tokens
+│   └── vite.config.js    # Frontend build config
+└── README.md             # Project documentation
+```
 
-1. **Clone the repository** (if applicable) and navigate to the root directory:
-   ```bash
-   cd CyberShield
-   ```
+## Installation
 
-2. **Backend Setup**
-   ```bash
-   cd backend
-   npm install
-   ```
-   - Create a `.env` file in the `backend` folder based on `.env.example`:
-     ```env
-     PORT=5000
-     MONGO_URI=mongodb://127.0.0.1:27017/cybershield
-     JWT_SECRET=your_super_secret_jwt_key
-     JWT_EXPIRES_IN=1d
-     ```
+Clone the repository and install dependencies for both the frontend and backend.
 
-3. **Frontend Setup**
-   ```bash
-   cd frontend
-   npm install
-   ```
-   - Create a `.env` file in the `frontend` folder:
-     ```env
-     VITE_API_URL=http://localhost:5000/api
-     ```
+```bash
+git clone <your-repo-url>
+cd CyberShield
 
-## Running the Application
+# Install backend dependencies
+cd backend
+npm install
 
-**Start the Backend**
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+## Environment Variables
+
+Copy the example configuration files and update them with your actual values.
+**Note:** Never commit your actual `.env` files.
+
+### Backend (`backend/.env`)
+```env
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/cybershield
+JWT_SECRET=your_secure_jwt_secret
+JWT_EXPIRES_IN=1d
+AI_API_KEY=your_gemini_api_key_here
+```
+*(If `AI_API_KEY` is omitted, the AI Assistant will seamlessly fall back to an internal rule-based engine).*
+
+### Frontend (`frontend/.env`)
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+## Running Locally
+
+To run the application in a development environment:
+
+**1. Start the Backend server:**
 ```bash
 cd backend
 npm run dev
 ```
-The backend API will run on `http://localhost:5000`.
 
-**Start the Frontend**
+**2. Start the Frontend development server:**
 ```bash
 cd frontend
 npm run dev
 ```
-The React frontend will be available at `http://localhost:5173`.
 
-## API Endpoints
+The frontend will be available at `http://localhost:5173`.
 
-- `POST /api/auth/register`: Register a new user
-- `POST /api/auth/login`: Authenticate user & get token
-- `GET /api/auth/me`: Get current authenticated user profile (Requires Bearer Token)
+## API Overview
 
-## Definition of Done (Phase 1)
-- [x] Frontend and backend are separate applications.
-- [x] React communicates with Express through REST APIs.
-- [x] MongoDB connection established.
-- [x] User registration & login implemented securely.
-- [x] Passwords are securely hashed.
-- [x] JWT authentication guards protected routes.
-- [x] User profile & Dashboard load dynamically.
-- [x] Clean, responsive cybersecurity-themed UI.
+The backend exposes several RESTful API groups:
+
+- `/api/auth` - User registration, login, and admin bootstrapping.
+- `/api/missions` - Fetch active missions, submit mission attempts.
+- `/api/users` - Fetch user profiles, gamification stats, and leaderboard.
+- `/api/learn` - Fetch topic-specific educational content.
+- `/api/ai` - Communicate with the AI Security Assistant.
+- `/api/admin` - Protected routes for dashboard analytics, audit logs, and system health.
+
+## Security Controls
+
+- **Authentication**: JWT-based session management.
+- **Authorization**: Role-based access control (`user` vs `admin`) strictly enforced on the server.
+- **Data Protection**: Passwords securely hashed with `bcrypt`.
+- **System Hardening**: `Helmet` for HTTP headers, `express-rate-limit` to prevent brute force, and `express-mongo-sanitize` for NoSQL injection prevention.
+- **Audit Logs**: Centralized logging for sensitive administrative and authentication actions.
+- **Fair Play**: Server-side scoring logic and duplicate reward protections ensure XP and Achievements cannot be manipulated from the client.

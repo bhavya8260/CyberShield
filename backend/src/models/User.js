@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       default: 'user',
+      enum: ['user', 'admin']
+    },
+    isActive: {
+      type: Boolean,
+      default: true
     },
     totalScore: {
       type: Number,
@@ -35,6 +40,39 @@ const userSchema = new mongoose.Schema(
     completedChallenges: {
       type: Number,
       default: 0,
+    },
+    level: {
+      type: Number,
+      default: 1,
+    },
+    currentStreak: {
+      type: Number,
+      default: 0,
+    },
+    longestStreak: {
+      type: Number,
+      default: 0,
+    },
+    lastActivityDate: {
+      type: Date,
+      default: null,
+    },
+    achievements: [
+      {
+        achievementId: { type: String, required: true },
+        unlockedAt: { type: Date, default: Date.now },
+      }
+    ],
+    dailyChallengeClaimedDate: {
+      type: String, // format YYYY-MM-DD
+      default: null,
+    },
+    skills: {
+      phishing: { type: Number, default: 0 },
+      password: { type: Number, default: 0 },
+      network: { type: Number, default: 0 },
+      malware: { type: Number, default: 0 },
+      incidentResponse: { type: Number, default: 0 },
     },
   },
   {

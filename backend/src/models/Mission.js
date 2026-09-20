@@ -7,26 +7,28 @@ const questionSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['multiple-choice'], // Expandable for later
+    enum: ['multiple-choice'],
     default: 'multiple-choice',
   },
-  options: {
-    type: [String],
-    required: true,
-  },
+  options: [
+    {
+      text: { type: String, required: true },
+      value: { type: String, required: true }
+    }
+  ],
   correctAnswer: {
     type: String,
     required: true,
-    select: false, // Don't return this by default when fetching mission
+    select: false, // Security: do not send to frontend by default
   },
   explanation: {
     type: String,
     required: true,
-    select: false, // Don't return explanation until submitted
+    select: false, // Security: do not send explanation by default
   },
   points: {
     type: Number,
-    default: 100,
+    default: 10,
   }
 });
 
@@ -52,11 +54,11 @@ const missionSchema = new mongoose.Schema(
     },
     difficulty: {
       type: String,
-      enum: ['Beginner', 'Intermediate', 'Advanced'],
+      enum: ['easy', 'medium', 'hard'],
       required: true,
     },
     estimatedTime: {
-      type: String,
+      type: Number,
       required: true,
     },
     xpReward: {
@@ -72,7 +74,20 @@ const missionSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    questions: [questionSchema],
+    questions: {
+      type: [questionSchema],
+      default: [],
+    },
+    simulationType: {
+      type: String,
+      enum: ['phishing', 'password', 'network', 'malware', 'incident-response', null],
+      default: null,
+    },
+    simulationData: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+      select: false, // Security: don't expose without explicit .select('+simulationData')
+    },
     isPublished: {
       type: Boolean,
       default: true,
@@ -82,5 +97,27 @@ const missionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Add toJSON method to ensure hidden fields are removed when returning mission objects
+missionSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    if (ret.questions) {
+      ret.questions.forEach(q => {
+        delete q.correctAnswer;
+        delete q.explanation;
+      });
+    }
+    
+    // Scrutinize simulation data if it leaked into JSON
+    if (ret.simulationData && ret.simulationData.items) {
+      ret.simulationData.items.forEach(item => {
+        delete item.correctDecision;
+        delete item.explanation;
+        delete item.points;
+      });
+    }
+    return ret;
+  }
+});
 
 module.exports = mongoose.model('Mission', missionSchema);

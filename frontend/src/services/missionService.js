@@ -19,3 +19,22 @@ export const submitMission = async (id, answers) => {
     body: JSON.stringify({ answers }),
   });
 };
+
+export const getUserProgress = async () => {
+  return await apiFetch(`/missions/progress`);
+};
+
+export const getMissionResult = async (id) => {
+  return await apiFetch(`/missions/${id}/result`);
+};
+
+export const getSimulation = async (id) => {
+  return await apiFetch(`/missions/${id}/simulation`);
+};
+
+export const submitSimulation = async (id, decisions) => {
+  return await apiFetch(`/missions/${id}/simulation/submit`, {
+    method: 'POST',
+    body: JSON.stringify({ decisions }),
+  });
+};

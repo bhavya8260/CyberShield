@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const AuditLog = require('../models/AuditLog');
 const generateToken = require('../utils/generateToken');
 
 // @desc    Register a new user
@@ -57,6 +58,25 @@ const loginUser = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password'); // select password because it is excluded by default
 
     if (user && (await user.matchPassword(password))) {
+      if (!user.isActive) {
+        await AuditLog.create({
+          userId: user._id,
+          action: 'LOGIN_FAILURE',
+          resource: 'Auth',
+          metadata: { reason: 'Account disabled' },
+          ipAddress: req.ip
+        });
+        res.status(403);
+        throw new Error('Account disabled. Please contact support.');
+      }
+
+      await AuditLog.create({
+        userId: user._id,
+        action: 'LOGIN_SUCCESS',
+        resource: 'Auth',
+        ipAddress: req.ip
+      });
+
       res.json({
         success: true,
         _id: user.id,
@@ -66,6 +86,15 @@ const loginUser = async (req, res, next) => {
         token: generateToken(user._id),
       });
     } else {
+      if (user) {
+        await AuditLog.create({
+          userId: user._id,
+          action: 'LOGIN_FAILURE',
+          resource: 'Auth',
+          metadata: { reason: 'Invalid credentials' },
+          ipAddress: req.ip
+        });
+      }
       res.status(401);
       throw new Error('Invalid credentials');
     }
@@ -94,8 +123,53 @@ const getMe = async (req, res, next) => {
   }
 };
 
+// @desc    Setup first admin (One-time endpoint)
+// @route   POST /api/auth/setup-admin
+// @access  Public (only works if 0 admins exist)
+const setupAdmin = async (req, res, next) => {
+  try {
+    const { email, password, username } = req.body;
+    
+    // Check if any admin exists
+    const adminCount = await User.countDocuments({ role: 'admin' });
+    if (adminCount > 0) {
+      res.status(403);
+      throw new Error('Admin setup is already completed.');
+    }
+
+    if (!email || !password || !username) {
+      res.status(400);
+      throw new Error('Please provide email, password, and username');
+    }
+
+    const user = await User.create({
+      username,
+      email,
+      password,
+      role: 'admin'
+    });
+
+    if (user) {
+      res.status(201).json({
+        success: true,
+        _id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   getMe,
+  setupAdmin,
 };

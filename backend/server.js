@@ -1,10 +1,16 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const connectDB = require('./src/config/database');
 const { errorHandler } = require('./src/middleware/errorMiddleware');
 const authRoutes = require('./src/routes/authRoutes');
 const missionRoutes = require('./src/routes/missionRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const learnRoutes = require('./src/routes/learnRoutes');
+const aiRoutes = require('./src/routes/aiRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 // Load env vars
 dotenv.config();
@@ -14,8 +20,18 @@ connectDB();
 
 const app = express();
 
+// Security Headers
+app.use(helmet());
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100 // 100 requests per window
+});
+app.use('/api', limiter);
+
 // Body parser
-app.use(express.json());
+app.use(express.json({ limit: '10kb' })); // Body limit
 
 // Enable CORS
 app.use(cors({
@@ -29,6 +45,10 @@ app.use(cors({
 // Mount routers
 app.use('/api/auth', authRoutes);
 app.use('/api/missions', missionRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/learn', learnRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Handle 404 for unknown routes
 app.use((req, res, next) => {
