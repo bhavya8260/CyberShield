@@ -41,7 +41,7 @@ const MissionPreview = () => {
               <div className="subtitle">
                 {mission.description}
               </div>
-              <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', fontSize: '0.6em', color: 'rgba(240, 248, 255, 0.691)', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', fontSize: '0.6em', color: 'var(--text-muted)', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
                 <span>Difficulty: {mission.difficulty}</span>
                 <span style={{ color: 'var(--accent-cyan)' }}>{mission.xp}</span>
               </div>

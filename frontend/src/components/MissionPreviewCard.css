@@ -29,7 +29,7 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
-  color: aliceblue;
+  color: var(--text-main);
   font-weight: 900;
   font-size: 1.2em;
   z-index: 1; /* Added to keep text above the ::before pseudo-element */
@@ -38,7 +38,7 @@
 .subtitle {
   font-size: .6em;
   font-weight: 300;
-  color: rgba(240, 248, 255, 0.691);
+  color: var(--text-muted);
   margin-top: 0.5rem;
   line-height: 1.5;
 }
@@ -60,4 +60,12 @@
   top: -30%;
   left: 50%;
   filter: blur(0rem);
+}
+
+[data-theme="light"] .card::before {
+  border: 35px solid rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="light"] .card {
+  background: rgba(37, 99, 235, 0.05);
 }
