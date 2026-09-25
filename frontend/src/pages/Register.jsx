@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { Shield } from 'lucide-react';
+import { Shield, Mail, Lock, User, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import './Auth.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,9 @@ const Register = () => {
     confirmPassword: '',
   });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,68 +51,130 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div className="auth-header">
-          <Shield className="auth-icon" />
-          <h2>Join CyberShield</h2>
-          <p>Create your agent profile</p>
+    <div className="split-auth-layout">
+      {/* Left Side: Cybersecurity Background */}
+      <div className="split-auth-left">
+        <div className="cyber-bg"></div>
+        <div className="cyber-lines"></div>
+        <div className="cyber-brand">
+          <Shield className="cyber-brand-icon" size={32} />
+          <h1>CyberShield</h1>
         </div>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit} className="auth-form">
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-              placeholder="e.g. Neo"
-            />
+        <div className="cyber-brand-tagline">
+          Learn. Investigate. Defend.
+        </div>
+      </div>
+
+      {/* Right Side: Authentication Card */}
+      <div className="split-auth-right">
+        <div className="split-auth-card">
+          <div className="auth-tabs">
+            <Link to="/login" className="auth-tab" state={{ from: location.state?.from }}>Login</Link>
+            <Link to="/register" className="auth-tab active" state={{ from: location.state?.from }}>Sign Up</Link>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="user@example.com"
-            />
+
+          <div className="split-auth-header">
+            <h2>Create Account</h2>
+            <p>Start your cybersecurity learning journey.</p>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              placeholder="••••••••"
-            />
+
+          {error && (
+            <div className="auth-error">
+              <AlertCircle size={18} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="split-auth-form">
+            <div className="split-form-group">
+              <label htmlFor="username">Username</label>
+              <div className="input-wrapper">
+                <User className="input-icon" size={18} />
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="auth-input"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g. Neo"
+                />
+              </div>
+            </div>
+
+            <div className="split-form-group">
+              <label htmlFor="email">Email</label>
+              <div className="input-wrapper">
+                <Mail className="input-icon" size={18} />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="auth-input"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="user@example.com"
+                />
+              </div>
+            </div>
+
+            <div className="split-form-group">
+              <label htmlFor="password">Password</label>
+              <div className="input-wrapper">
+                <Lock className="input-icon" size={18} />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  className="auth-input"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <div className="split-form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <div className="input-wrapper">
+                <Lock className="input-icon" size={18} />
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  className="auth-input"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" className="auth-btn">Create Account</button>
+          </form>
+
+          <div className="split-auth-footer">
+            Already have an account? <Link to="/login" state={{ from: location.state?.from }}>Login</Link>
           </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              placeholder="••••••••"
-            />
-          </div>
-          <button type="submit" className="btn btn-primary btn-block">Register</button>
-        </form>
-        <p className="auth-footer">
-          Already have an account? <Link to="/login" state={{ from: location.state?.from }}>Login here</Link>
-        </p>
+        </div>
       </div>
     </div>
   );

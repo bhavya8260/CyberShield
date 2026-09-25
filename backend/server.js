@@ -21,6 +21,15 @@ connectDB();
 
 const app = express();
 
+// Enable CORS
+app.use(cors({
+  origin: function (origin, callback) {
+    // Reflect the requesting origin to support Vercel preview domains and localhosts
+    callback(null, origin || '*');
+  },
+  credentials: true,
+}));
+
 // Security Headers
 app.use(helmet());
 
@@ -34,14 +43,7 @@ app.use('/api', limiter);
 // Body parser
 app.use(express.json({ limit: '10kb' })); // Body limit
 
-// Enable CORS
-app.use(cors({
-  origin: function (origin, callback) {
-    // Reflect the requesting origin to support Vercel preview domains and localhosts
-    callback(null, origin || '*');
-  },
-  credentials: true,
-}));
+
 
 // Mount routers
 app.use('/api/auth', authRoutes);
@@ -56,7 +58,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use((req, res, next) => {
   res.status(404);
   const error = new Error(`Not Found - ${req.originalUrl}`);
-  next(error);
+  next(error); 
 });
 
 // Error middleware

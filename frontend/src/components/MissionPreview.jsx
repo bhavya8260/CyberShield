@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/cybershield.css';
+import './MissionPreviewCard.css';
 
 const MissionPreview = () => {
   const missions = [
@@ -31,15 +32,19 @@ const MissionPreview = () => {
       </div>
       <div className="missions-grid">
         {missions.map((mission, index) => (
-          <div className="mission-card" key={index}>
-            <div className="mission-coming-soon">COMING SOON</div>
-            <h3 className="mission-title">{mission.title}</h3>
-            <p className="mission-description" style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '-0.5rem', marginBottom: '1rem' }}>
-              {mission.description}
-            </p>
-            <div className="mission-meta">
-              <span>Difficulty: {mission.difficulty}</span>
-              <span style={{ color: 'var(--accent-cyan)' }}>{mission.xp}</span>
+          <div className="card" key={index}>
+            <div className="text">
+              <span style={{ fontSize: '0.6em', color: 'var(--accent-cyan)', marginBottom: '0.5rem', letterSpacing: '1px' }}>
+                COMING SOON
+              </span>
+              {mission.title}
+              <div className="subtitle">
+                {mission.description}
+              </div>
+              <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', fontSize: '0.6em', color: 'rgba(240, 248, 255, 0.691)', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <span>Difficulty: {mission.difficulty}</span>
+                <span style={{ color: 'var(--accent-cyan)' }}>{mission.xp}</span>
+              </div>
             </div>
           </div>
         ))}
