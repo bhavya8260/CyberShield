@@ -6,18 +6,22 @@ import MissionPreview from '../components/MissionPreview';
 import GamificationPreview from '../components/GamificationPreview';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
+import CyberSecurity3DBackground from '../components/CyberSecurity3DBackground';
 
 const Home = () => {
   return (
-    <div className="cybershield-container">
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <MissionPreview />
-      <GamificationPreview />
-      <CTA />
-      <Footer />
-    </div>
+    <>
+      <CyberSecurity3DBackground />
+      <div className="cybershield-container landing-page-content" style={{ position: 'relative', zIndex: 1 }}>
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <MissionPreview />
+        <GamificationPreview />
+        <CTA />
+        <Footer />
+      </div>
+    </>
   );
 };
 
